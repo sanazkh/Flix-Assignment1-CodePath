@@ -15,7 +15,6 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet var mySearchBar: UISearchBar!
     var movies : [[String: Any]] = []
-   // var filterMovies : [[String: Any]] = []
     var allMovies : [[String: Any]] = []
     let backgroundView = UIView()
     let refreshControl = UIRefreshControl()
@@ -25,7 +24,7 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         myTableView.insertSubview(refreshControl, at: 0)
-        self.title = "Flix Feed"
+        self.title = "Now Playing Movies"
         mySearchBar.delegate = self
         myTableView.insertSubview(refreshControl, at: 0)
         myTableView.dataSource = self
@@ -51,9 +50,8 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = myTableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! CustomCell
+        let cell = myTableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MovieCell
         let movie = movies[indexPath.row]
-      //  let movie = filterMovies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         
@@ -179,10 +177,9 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = sender as! UITableViewCell
         let indexPath = myTableView.indexPath(for: cell)
-        let movie = allMovies[indexPath!.row]
+        let movie = movies[indexPath!.row]
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
-        
         
     }
     

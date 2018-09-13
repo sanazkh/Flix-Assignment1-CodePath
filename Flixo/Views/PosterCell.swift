@@ -10,4 +10,8 @@ import UIKit
 
 class PosterCell: UICollectionViewCell {
     
+    
+    @IBOutlet var myImageView: UIImageView!
+    
+    
 }
