@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomCell: UITableViewCell {
+class MovieCell: UITableViewCell {
 
     
     @IBOutlet var myImageView: UIImageView!

@@ -137,7 +137,6 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
                 print(dataDictionary)
                 let movies = dataDictionary["results"] as! [[String : Any]]
                 self.movies = movies
-             //   self.filterMovies = movies
                 self.allMovies = movies
                 
                 self.myTableView.reloadData()
@@ -170,9 +169,7 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.text = ""
         searchBar.endEditing(true)
         searchBar.resignFirstResponder()
-       // filterMovies = movies
         movies = allMovies
-        //fetchNowPlayingMoview()
         myTableView.reloadData()
     }
     
@@ -182,7 +179,6 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = sender as! UITableViewCell
         let indexPath = myTableView.indexPath(for: cell)
-      //  let movie = movies[indexPath!.row]
         let movie = allMovies[indexPath!.row]
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
