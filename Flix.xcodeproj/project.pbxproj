@@ -16,10 +16,11 @@
 		A307F1F8214213DF00580E9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A307F1F6214213DF00580E9E /* LaunchScreen.storyboard */; };
 		A307F20221423BBD00580E9E /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307F20121423BBD00580E9E /* MovieCell.swift */; };
 		A36A0C2D2142F1A80079F17C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36A0C2C2142F1A80079F17C /* DetailViewController.swift */; };
+		A386CC5F216F0D8400B36BD5 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = A386CC5E216F0D8400B36BD5 /* Video.swift */; };
 		A39C9769214989A400A6CF4C /* PosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C9768214989A400A6CF4C /* PosterCell.swift */; };
 		A39C976B21498A2600A6CF4C /* SuperHeroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C976A21498A2600A6CF4C /* SuperHeroViewController.swift */; };
 		A39C976E2149D32400A6CF4C /* TrailerPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C976D2149D32400A6CF4C /* TrailerPlayViewController.swift */; };
-		A39C97712150118400A6CF4C /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C97702150118400A6CF4C /* MovieModel.swift */; };
+		A39C97712150118400A6CF4C /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C97702150118400A6CF4C /* Movie.swift */; };
 		A39C9773215011FA00A6CF4C /* MovieAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39C9772215011FA00A6CF4C /* MovieAPIManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,10 +38,11 @@
 		A307F1F9214213DF00580E9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A307F20121423BBD00580E9E /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		A36A0C2C2142F1A80079F17C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A386CC5E216F0D8400B36BD5 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		A39C9768214989A400A6CF4C /* PosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCell.swift; sourceTree = "<group>"; };
 		A39C976A21498A2600A6CF4C /* SuperHeroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHeroViewController.swift; sourceTree = "<group>"; };
 		A39C976D2149D32400A6CF4C /* TrailerPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerPlayViewController.swift; sourceTree = "<group>"; };
-		A39C97702150118400A6CF4C /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		A39C97702150118400A6CF4C /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		A39C9772215011FA00A6CF4C /* MovieAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +133,8 @@
 		A39C976F2150114600A6CF4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A39C97702150118400A6CF4C /* MovieModel.swift */,
+				A39C97702150118400A6CF4C /* Movie.swift */,
+				A386CC5E216F0D8400B36BD5 /* Video.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,13 +257,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A39C97712150118400A6CF4C /* MovieModel.swift in Sources */,
+				A39C97712150118400A6CF4C /* Movie.swift in Sources */,
 				A307F1F3214213DE00580E9E /* Flixo.xcdatamodeld in Sources */,
 				A307F1ED214213DE00580E9E /* NowPlayingViewController.swift in Sources */,
 				A39C976E2149D32400A6CF4C /* TrailerPlayViewController.swift in Sources */,
 				A39C9769214989A400A6CF4C /* PosterCell.swift in Sources */,
 				A36A0C2D2142F1A80079F17C /* DetailViewController.swift in Sources */,
 				A307F20221423BBD00580E9E /* MovieCell.swift in Sources */,
+				A386CC5F216F0D8400B36BD5 /* Video.swift in Sources */,
 				A39C9773215011FA00A6CF4C /* MovieAPIManager.swift in Sources */,
 				A39C976B21498A2600A6CF4C /* SuperHeroViewController.swift in Sources */,
 				A307F1EB214213DE00580E9E /* AppDelegate.swift in Sources */,

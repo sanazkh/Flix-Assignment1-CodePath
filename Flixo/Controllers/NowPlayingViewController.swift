@@ -13,8 +13,11 @@ import MBProgressHUD
 class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet var mySearchBar: UISearchBar!
-    var movies : [[String: Any]] = []
-    var allMovies : [[String: Any]] = []
+    //var movies : [[String: Any]] = []
+    
+    //var allMovies : [[String: Any]] = []
+    var movies : [Movie] = []
+    var allMovies : [Movie] = []
     let backgroundView = UIView()
     let refreshControl = UIRefreshControl()
     @IBOutlet var myTableView: UITableView!
@@ -31,12 +34,27 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
         // self sizing row
         myTableView.rowHeight = UITableViewAutomaticDimension
         myTableView.estimatedRowHeight = 150
-        fetchNowPlayingMoview()
+        
+        //fetchNowPlayingMoview()
+        fetchMovies()
         
     }
     
+    func fetchMovies(){
+        MovieAPIManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
+                self.movies = movies
+                self.allMovies = movies
+                self.myTableView.reloadData()
+            }
+            self.refreshControl.endRefreshing()
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
+    }
+    
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        fetchNowPlayingMoview()
+       // fetchNowPlayingMoview()
+        fetchMovies()
         
     }
     
@@ -53,6 +71,10 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myTableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! MovieCell
         let movie = movies[indexPath.row]
+        cell.movie = movie
+        
+        
+        /* let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         
@@ -117,12 +139,13 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.myImageView.image = placeholderImage
         }
         backgroundView.backgroundColor = UIColor.gray
-        cell.selectedBackgroundView = backgroundView
+        cell.selectedBackgroundView = backgroundView */
         return cell
     }
     
     
-    func fetchNowPlayingMoview(){
+    
+   /* func fetchNowPlayingMoview(){
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=85c378ca43ad66ca8fa593bb2aaacca0")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -135,9 +158,9 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 print(dataDictionary)
-                let movies = dataDictionary["results"] as! [[String : Any]]
-                self.movies = movies
-                self.allMovies = movies
+               // let movies = dataDictionary["results"] as! [[String : Any]]
+               // self.movies = movies
+               // self.allMovies = movies
                 
                 self.myTableView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -145,16 +168,24 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         task.resume()
-    }
+    } */
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        movies = searchText.isEmpty ? movies : allMovies.filter { (item: [String : Any]) -> Bool in
+        movies = searchText.isEmpty ? movies : allMovies.filter { (item: Movie) -> Bool in
+            
+            let res = item.title
+            return res.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        self.myTableView.reloadData()
+       
+        
+      /*  movies = searchText.isEmpty ? movies : allMovies.filter { (item: [String : Any]) -> Bool in
             
             let res = item["title"] as! String
             return res.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-        self.myTableView.reloadData()
+        self.myTableView.reloadData() */
     }
     
     

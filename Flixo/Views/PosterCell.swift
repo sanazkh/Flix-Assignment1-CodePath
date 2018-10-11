@@ -13,5 +13,10 @@ class PosterCell: UICollectionViewCell {
     
     @IBOutlet var myImageView: UIImageView!
     
+    var movie: Movie? {
+        didSet {
+            myImageView.af_setImage(withURL: (movie?.posterURL)!)
+        }
+    }
     
 }

@@ -14,8 +14,11 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIS
     
     @IBOutlet var mySearchBar: UISearchBar!
     
-    var movies : [[String: Any]] = []
-    var allMovies : [[String: Any]] = []
+    var movies : [Movie] = []
+    var allMovies : [Movie] = []
+    
+    //var movies : [[String: Any]] = []
+    //var allMovies : [[String: Any]] = []
     let refreshControl = UIRefreshControl()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -24,18 +27,20 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: "posterCell", for: indexPath) as! PosterCell
-        let movie = movies[indexPath.item]
-        if let posterPathString = movie["poster_path"] as? String{
+        let movie = movies[indexPath.row]
+        cell.movie = movie
+       /* if let posterPathString = movie["poster_path"] as? String{
             let baseURLStringLarge = "https://image.tmdb.org/t/p/w500"
             let posterURL = URL(string: baseURLStringLarge + posterPathString)!
             cell.myImageView.af_setImage(withURL: posterURL)
-        }
+        } */
         
         return cell
     }
     
 
     @IBOutlet var myCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myCollectionView.dataSource = self
@@ -62,6 +67,19 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIS
     }
     
     func fetchSuperHeroMovies(){
+        MovieAPIManager().superheroMovies { (movies: [Movie]?, error: Error?) in
+            if let movies = movies {
+                self.movies = movies
+                self.allMovies = movies
+                self.myCollectionView.reloadData()
+            }
+            self.refreshControl.endRefreshing()
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
+    }
+    
+    
+    /*  func fetchSuperHeroMovies(){
         
         let url = URL(string: "https://api.themoviedb.org/3/movie/363088/similar?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -86,7 +104,7 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIS
             }
         }
         task.resume()
-    }
+    } */
 
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
         fetchSuperHeroMovies()
@@ -94,12 +112,18 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UIS
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        movies = searchText.isEmpty ? movies : allMovies.filter { (item: [String : Any]) -> Bool in
+        movies = searchText.isEmpty ? movies : allMovies.filter { (item: Movie) -> Bool in
+            
+            let res = item.title
+            return res.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        self.myCollectionView.reloadData()
+        /* movies = searchText.isEmpty ? movies : allMovies.filter { (item: [String : Any]) -> Bool in
             
             let res = item["title"] as! String
             return res.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-        self.myCollectionView.reloadData()
+        self.myCollectionView.reloadData() */
     }
     
     

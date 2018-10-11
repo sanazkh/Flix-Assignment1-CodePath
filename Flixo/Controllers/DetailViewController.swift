@@ -9,10 +9,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-    
-    
-    
+    var movie: Movie?
     @IBOutlet var secondImageView: UIImageView!
  
     @IBOutlet var descLabel: UILabel!
@@ -21,14 +18,22 @@ class DetailViewController: UIViewController {
     @IBOutlet var releaseLabel: UILabel!
     @IBOutlet var dImageView: UIImageView!
     
-    var movie: [String : Any] = [:]
-    var movieVideo : [[String: Any]] = []
+   // var movie: [String : Any] = [:]
+   // var movieVideo : [[String: Any]] = []
     var movieID = 0
-    
+    var movieVideo : [Video] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        originalTitle.text = movie["title"] as? String
+        if let movie = movie{
+            originalTitle.text = movie.title
+            releaseLabel.text = movie.releaseDate
+            descLabel.text = movie.overview
+            movieID = movie.movieID
+            secondImageView.af_setImage(withURL: movie.backdropURL)
+            dImageView.af_setImage(withURL: movie.posterURL)
+        }
+        
+      /*  originalTitle.text = movie["title"] as? String
         descLabel.text = movie["overview"] as? String
         releaseLabel.text = movie["release_date"] as? String
         movieID = (movie["id"] as? Int)!
@@ -42,13 +47,13 @@ class DetailViewController: UIViewController {
             let baseUrl = "https://image.tmdb.org/t/p/w500"
             let bdimageUrl = URL(string: baseUrl + backDropPath)
             secondImageView.setImageWith(bdimageUrl!)
-        }
+        } */
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped(gesture:)))
         // add it to the image view;
         dImageView.addGestureRecognizer(tapGesture)
         // make sure imageView can be interacted with by user
         dImageView.isUserInteractionEnabled = true
-        fetchMovieVideos()
+       fetchMovieVideos()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,7 +68,18 @@ class DetailViewController: UIViewController {
         }
     }
     
+
+    
+    
     func fetchMovieVideos(){
+        MovieAPIManager().movieVideos(movieID: movieID) { (movieVideo: [Video]?, error: Error?) in
+            if let videos = movieVideo {
+                self.movieVideo = videos
+            }
+        }
+    }
+    
+   /* func fetchMovieVideos(){
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID)/videos?api_key=85c378ca43ad66ca8fa593bb2aaacca0")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -82,13 +98,13 @@ class DetailViewController: UIViewController {
             }
         }
         task.resume()
-    }
+    } */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "modalSegue") {
             let vc = segue.destination as! TrailerPlayViewController
             let firstVideo = movieVideo[0]
-            vc.youtubeKey = firstVideo["key"] as! String
+            vc.youtubeKey = firstVideo.key
         }
     }
 }
