@@ -77,15 +77,6 @@ The following **stretch** features are implemented:
 - [x] Customize the navigation bar (+1pt)
 - [x] User can search in collection view
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1. None
-2.
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -179,11 +170,6 @@ The following **required** user stories are complete:
 The following **additional** user stories are implemented:
 
 - [x] Create a video model to play trailer video
-
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-
-1.
-2.
 
 ## Video Walkthrough
 
